@@ -346,8 +346,8 @@
                         <input type="text" id="ai-topic" placeholder="VD: Khởi nghĩa Hai Bà Trưng..." class="w-full bg-black/40 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:border-purple-500 focus:outline-none">
                     </div>
                     <div>
-                        <label class="text-xs text-gray-400 font-bold mb-1 block">Số lượng câu (Tối đa 5)</label>
-                        <input type="number" id="ai-count" min="1" max="5" value="3" class="w-full bg-black/40 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:border-purple-500 focus:outline-none">
+                        <label class="text-xs text-gray-400 font-bold mb-1 block">Số lượng câu (Tối thiểu 3)</label>
+                        <input type="number" id="ai-count" min="3" value="3" class="w-full bg-black/40 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:border-purple-500 focus:outline-none">
                     </div>
                     <button id="btn-generate-ai" onclick="generateAIQuestions()" class="w-full mt-2 py-3 rounded-xl text-sm font-black bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-[0_0_15px_rgba(192,38,211,0.4)] transition-all flex items-center justify-center gap-2 focus:outline-none">
                         <span>🚀 GỌI GIÁO SƯ TRÍ TUỆ BẮT ĐẦU TẠO</span>
@@ -734,8 +734,11 @@
     async function generateAIQuestions() {
         const subject = document.getElementById('ai-subject').value.trim();
         const topic = document.getElementById('ai-topic').value.trim();
-        const count = parseInt(document.getElementById('ai-count').value);
+        let count = parseInt(document.getElementById('ai-count').value);
         const difficulty = parseInt(document.getElementById('ai-difficulty').value);
+
+        // Chặn điều kiện tối thiểu 3 câu, không giới hạn tối đa
+        if (isNaN(count) || count < 3) count = 3;
 
         if (!subject || !topic) {
             updateDataStatus("⚠️ Vui lòng nhập Môn học và Nội dung!", "yellow");
@@ -763,16 +766,32 @@ TỪ GIỜ, BẠN HÃY ĐÓNG VAI LÀ "GIÁO SƯ TRÍ TUỆ" - vui tính, thông
 - Số câu: ${count}
 - Độ khó: ${difficultyText}
 
-Mỗi câu gồm: Câu hỏi, 4 đáp án (a), Vị trí đáp án đúng (c), Giải thích (exp) Tối đa 2 câu mang văn phong Giáo sư xưng "Ta", gọi "Trò".
-Chỉ trả về JSON ARRAY, KHÔNG CÓ BẤT KỲ CHỮ NÀO KHÁC. Format: [{"q":"...","a":["A","B","C","D"],"c":0,"exp":"..."}]`;
+Mỗi câu gồm: Câu hỏi (q), 4 đáp án (a), Vị trí đáp án đúng từ 0 đến 3 (c), Giải thích (exp) Tối đa 2 câu mang văn phong Giáo sư xưng "Ta", gọi "Trò".
+Trả về JSON là một object có chứa mảng "questions".`;
 
+        // Khắc phục cấu trúc Schema từ ARRAY sang OBJECT để tránh lỗi 400 Bad Request
         const payload = {
             contents: [{ parts: [{ text: promptText }] }],
             generationConfig: {
                 responseMimeType: "application/json",
                 responseSchema: {
-                    type: "ARRAY",
-                    items: { type: "OBJECT", properties: { q: { type: "STRING" }, a: { type: "ARRAY", items: { type: "STRING" } }, c: { type: "INTEGER" }, exp: { type: "STRING" } }, required: ["q", "a", "c", "exp"] }
+                    type: "OBJECT",
+                    properties: {
+                        questions: {
+                            type: "ARRAY",
+                            items: { 
+                                type: "OBJECT", 
+                                properties: { 
+                                    q: { type: "STRING" }, 
+                                    a: { type: "ARRAY", items: { type: "STRING" } }, 
+                                    c: { type: "INTEGER" }, 
+                                    exp: { type: "STRING" } 
+                                }, 
+                                required: ["q", "a", "c", "exp"] 
+                            }
+                        }
+                    },
+                    required: ["questions"]
                 }
             }
         };
@@ -781,11 +800,17 @@ Chỉ trả về JSON ARRAY, KHÔNG CÓ BẤT KỲ CHỮ NÀO KHÁC. Format: [{"
             const data = await fetchWithRetry(url, payload);
             const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
             if (!rawText) throw new Error("AI không trả về kết quả.");
-            const aiQuestions = JSON.parse(rawText);
+            
+            const parsedData = JSON.parse(rawText);
+            const aiQuestions = parsedData.questions || parsedData;
+            
+            if (!Array.isArray(aiQuestions) || aiQuestions.length === 0) throw new Error("Dữ liệu rỗng.");
+
             aiQuestionsQueue.unshift(...aiQuestions);
             updateDataStatus(`✅ Giáo sư đã tạo xong ${aiQuestions.length} câu hỏi đặc biệt!`, 'emerald');
             document.getElementById('ai-topic').value = '';
         } catch (error) {
+            console.error("Lỗi API AI:", error);
             updateDataStatus(`❌ Đã xảy ra lỗi kết nối với Giáo sư. Vui lòng thử lại.`, 'red');
         } finally {
             btn.disabled = false;
