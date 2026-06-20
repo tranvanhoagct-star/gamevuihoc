@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kho Báu Tri Thức - EdTech Pro Edition</title>
+    <title>KHO BÁU TRI THỨC - EDTECH PRO EDITION </title>
     <!-- Thư viện giao diện Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Thư viện hiệu ứng pháo giấy -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <!-- Thư viện SheetJS để đọc/xuất file Excel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
+    
     <!-- FIREBASE CLOUD DATABASE -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -68,7 +68,7 @@
 
         window.initFirebase();
     </script>
-    
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap');
 
@@ -87,6 +87,7 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* Boss Mode Style */
         body.boss-mode {
             background: linear-gradient(-45deg, #2a0000, #4a0000, #1a0000, #300000);
             background-size: 400% 400%;
@@ -168,6 +169,7 @@
             transition: width 0.1s linear, background-color 0.3s;
         }
 
+        /* Animations */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             20%, 60% { transform: translateX(-8px) rotate(-1deg); }
@@ -193,13 +195,7 @@
             box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
         }
 
-        @keyframes heartBreak {
-            0% { transform: scale(1); filter: grayscale(0%); opacity: 1;}
-            50% { transform: scale(1.5); filter: grayscale(50%) brightness(2); }
-            100% { transform: scale(1); filter: grayscale(100%); opacity: 0.3; }
-        }
-        .heart-lost { animation: heartBreak 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-
+        /* Floating Points Animation */
         .time-bonus-pop {
             position: absolute;
             font-weight: 900;
@@ -215,6 +211,7 @@
             100% { opacity: 0; transform: translateY(-80px) scale(1); }
         }
 
+        /* Explanation Box */
         .explanation-box {
             display: none;
             animation: popIn 0.4s ease-out forwards;
@@ -223,6 +220,7 @@
             display: block;
         }
 
+        /* Toast thông báo */
         #toast {
             position: fixed;
             bottom: -50px;
@@ -255,6 +253,7 @@
             color: #ccc;
         }
 
+        /* Form AI Spinner */
         .loader {
             border: 3px solid rgba(255,255,255,0.3);
             border-radius: 50%;
@@ -269,6 +268,7 @@
 </head>
 <body class="flex flex-col items-center justify-center p-2 sm:p-4 relative w-screen h-[100dvh] transition-colors duration-500">
 
+    <!-- Nút tùy chọn góc phải -->
     <div class="absolute top-4 right-4 z-40 flex gap-2 sm:gap-3">
         <button id="btn-pause" onclick="togglePause()" class="glass-panel hidden p-3 rounded-full text-xl sm:text-2xl transition-all hover:scale-110 shadow-[0_0_15px_rgba(255,255,255,0.1)] focus:outline-none" title="Tạm dừng">
             ⏸️
@@ -281,9 +281,10 @@
         </button>
     </div>
     <div class="absolute top-4 left-4 z-40 text-xs text-gray-400 opacity-50 hidden sm:block font-semibold">
-        ⌨️ Phím tắt: A B C D | 1 2 3 | Tạm dừng: P
+        ⌨️ Hỗ trợ phím tắt: A B C D | 1 2 3
     </div>
 
+    <!-- Thông báo nổi -->
     <div id="toast">✅ Thao tác thành công!</div>
 
     <!-- Màn Hình Tạm Dừng -->
@@ -296,7 +297,7 @@
         </button>
     </div>
 
-    <!-- Modal MẬT KHẨU GIÁO VIÊN -->
+    <!-- Modal MẬT KHẨU GIÁO VIÊN (ANTI-HỌC SINH) -->
     <div id="auth-modal" class="fixed inset-0 bg-black/95 flex items-center justify-center hidden z-[110] p-4 backdrop-blur-md transition-all">
         <div class="glass-panel w-full max-w-sm rounded-3xl p-6 sm:p-8 text-center relative border border-white/20 animate-pop">
             <button onclick="closeAuthModal()" class="absolute top-4 right-5 text-gray-400 hover:text-white text-3xl focus:outline-none transition-transform hover:rotate-90">&times;</button>
@@ -360,7 +361,7 @@
                         <input type="number" id="ai-count" min="3" value="3" class="w-full bg-black/40 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:border-purple-500 focus:outline-none">
                     </div>
                     <button id="btn-generate-ai" onclick="generateAIQuestions()" class="w-full mt-2 py-3 rounded-xl text-sm font-black bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-[0_0_15px_rgba(192,38,211,0.4)] transition-all flex items-center justify-center gap-2 focus:outline-none">
-                        <span>🚀 GỌI GIÁO SƯ TRÍ TUỆ BẮT ĐẦU TẠO</span>
+                        <span>🚀 TẠO NGAY</span>
                     </button>
                     <div id="ai-status" class="text-xs text-center font-semibold text-gray-300 hidden"></div>
                 </div>
@@ -370,6 +371,7 @@
         </div>
     </div>
 
+    <!-- Màn hình Giới thiệu -->
     <div id="intro-screen" class="glass-panel w-full max-w-xl max-h-full overflow-y-auto custom-scrollbar rounded-3xl p-6 sm:p-10 text-center animate-pop mx-auto flex flex-col justify-center border-t border-l border-white/20">
         <div class="mx-auto mb-6 inline-flex items-center justify-center w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-blue-500/30 to-purple-500/30 text-4xl sm:text-6xl shadow-[0_0_40px_rgba(59,130,246,0.5)] border border-white/10 animate-bounce">
             🧠
@@ -384,12 +386,13 @@
         </div>
 
         <p class="text-gray-300 mb-8 text-sm sm:text-base px-2">
-            Đúng & Nhanh sẽ cộng <span class="text-emerald-400 font-bold">Nhiều IQ</span>. Sai sẽ trừ IQ và mất <span class="text-red-400 font-bold">Sinh mệnh ❤️</span>. Hết sinh mệnh = Bị Loại!
+            Trả lời <span class="text-emerald-400 font-bold">ĐÚNG & NHANH</span>, IQ cộng càng <span class="text-emerald-400 font-bold">NHIỀU</span>.
+            <br class="hidden sm:block"> Tích lũy Combo để x2, x3 điểm số!
         </p>
         
         <div class="flex flex-col sm:flex-row gap-3">
             <button onclick="startGame()" class="flex-1 py-4 rounded-xl text-lg sm:text-xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-[0_10px_30px_rgba(79,70,229,0.5)] transition-all text-white active:scale-95 focus:outline-none">
-                🚀 VÀO PHÒNG THI
+                🚀 BẮT ĐẦU CHƠI
             </button>
             <div class="flex gap-3">
                 <button onclick="viewLeaderboard()" class="flex-1 sm:w-16 py-4 sm:py-0 rounded-xl text-2xl bg-white/10 hover:bg-white/20 border border-white/20 transition-all active:scale-95 flex items-center justify-center focus:outline-none" title="Xem bảng xếp hạng">
@@ -402,42 +405,34 @@
         </div>
     </div>
 
+    <!-- Màn hình Game -->
     <div id="game-screen" class="w-full max-w-2xl hidden mx-auto flex-col h-full justify-center relative">
-        <div class="flex justify-between items-start mb-2 px-1">
-            <div class="glass-panel px-4 py-2 rounded-2xl flex flex-col items-start border border-red-500/30 bg-red-900/10">
-                <span class="text-[10px] sm:text-xs text-red-300 font-bold uppercase tracking-wider mb-1">Sinh Mệnh</span>
-                <div id="lives-container" class="flex gap-1 text-xl sm:text-2xl">
-                    <span id="heart-1" class="transition-all duration-300">❤️</span>
-                    <span id="heart-2" class="transition-all duration-300">❤️</span>
-                    <span id="heart-3" class="transition-all duration-300">❤️</span>
-                </div>
+        <!-- Header Info -->
+        <div class="flex justify-between items-end mb-4 px-1 gap-2">
+            <div class="glass-panel px-4 py-2 rounded-2xl flex flex-col items-start min-w-[110px] border border-blue-500/30">
+                <span class="text-[10px] sm:text-xs text-blue-300 font-bold uppercase tracking-wider">Chỉ số IQ</span>
+                <span id="iq-score" class="text-2xl sm:text-4xl font-black text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all duration-300">100</span>
             </div>
-
+            
             <div class="flex flex-col items-end gap-1">
                 <div id="combo-multiplier" class="hidden combo-badge px-3 py-1 rounded-full text-white font-black text-xs sm:text-sm border border-yellow-300/50">
                     🔥 COMBO x2
                 </div>
-                <div id="streak-box" class="glass-panel px-4 py-1.5 rounded-2xl flex flex-col items-end min-w-[100px] border border-orange-500/30 bg-orange-900/10">
-                    <span class="text-[9px] sm:text-[10px] text-orange-300 font-bold uppercase tracking-wider">Chuỗi Đúng</span>
-                    <span class="text-lg sm:text-2xl font-black text-white flex items-center gap-1">
+                <div id="streak-box" class="glass-panel px-4 py-2 rounded-2xl flex flex-col items-end min-w-[110px] border border-orange-500/30">
+                    <span class="text-[10px] sm:text-xs text-orange-300 font-bold uppercase tracking-wider">Chuỗi Đúng</span>
+                    <span class="text-xl sm:text-3xl font-black text-white flex items-center gap-1">
                         <span id="streak-count">0</span> <span id="streak-icon" class="text-orange-400">⚡</span>
                     </span>
                 </div>
             </div>
         </div>
 
-        <div class="flex justify-between items-end mb-4 px-1">
-             <div class="glass-panel px-5 py-3 rounded-2xl flex flex-col items-start w-full border border-blue-500/40 bg-blue-900/20 relative overflow-hidden">
-                <div class="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-blue-500/20 to-transparent"></div>
-                <span class="text-[10px] sm:text-xs text-blue-300 font-bold uppercase tracking-wider">Chỉ số IQ Thực Tế</span>
-                <span id="iq-score" class="text-3xl sm:text-5xl font-black text-white drop-shadow-[0_0_15px_rgba(59,130,246,0.8)] transition-all duration-300">100</span>
-            </div>
-        </div>
-
+        <!-- Timer -->
         <div id="time-bar-container" class="h-[6px] sm:h-[8px] mb-4">
             <div id="time-bar"></div>
         </div>
 
+        <!-- Quyền Trợ Giúp -->
         <div class="flex justify-between items-center mb-4 gap-2 px-1">
             <button id="btn-5050" onclick="use5050()" class="flex-1 glass-panel py-2 rounded-xl text-xs sm:text-sm font-bold text-purple-300 hover:bg-purple-900/30 active:scale-95 transition-all flex flex-col items-center justify-center border-purple-500/30 focus:outline-none">
                 <span class="text-lg mb-1">🪄</span>
@@ -453,6 +448,7 @@
             </button>
         </div>
 
+        <!-- Khung Câu hỏi -->
         <div id="question-container" class="glass-panel rounded-3xl p-5 sm:p-8 mb-4 animate-pop relative transition-all duration-300 flex-shrink border border-white/20 flex flex-col">
             <div class="flex justify-between items-center mb-4 sm:mb-6">
                 <span id="q-number-badge" class="text-xs sm:text-sm font-black bg-blue-500/20 text-blue-300 px-3 py-1.5 rounded-full border border-blue-500/50 shadow-[0_0_10px_rgba(59,130,246,0.2)]">
@@ -461,23 +457,25 @@
                 <span id="tier-badge" class="text-xs sm:text-sm font-black text-emerald-400 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30">Khởi Động</span>
             </div>
             
-            <h2 id="question-text" class="text-xl sm:text-3xl md:text-4xl font-bold leading-relaxed mb-6 text-white min-h-[80px] flex items-center">
+            <h2 id="question-text" class="text-xl sm:text-2xl md:text-3xl font-bold leading-relaxed mb-6 text-white min-h-[80px] flex items-center">
                 Đang tải dữ liệu...
             </h2>
 
             <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 flex-1">
+                <!-- Buttons injected via JS -->
             </div>
 
-            <div id="explanation-container" class="explanation-box mt-6 p-5 rounded-2xl bg-black/60 border border-white/20 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-400" id="exp-indicator"></div>
-                <h4 class="text-xs sm:text-sm text-gray-400 font-bold uppercase mb-3 flex items-center gap-2">
-                    <span id="exp-icon" class="text-xl">👨‍🏫</span> <span class="tracking-widest">Giáo Sư Trí Tuệ Phân Tích:</span>
+            <!-- Khung Giải Thích -->
+            <div id="explanation-container" class="explanation-box mt-6 p-4 rounded-2xl bg-black/50 border border-white/20 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-emerald-400" id="exp-indicator"></div>
+                <h4 class="text-xs sm:text-sm text-gray-400 font-bold uppercase mb-2 flex items-center gap-2">
+                    <span id="exp-icon">💡</span> Giải thích đáp án
                 </h4>
-                <p id="explanation-text" class="text-sm sm:text-lg text-white font-medium leading-relaxed mb-5 italic">
+                <p id="explanation-text" class="text-sm sm:text-lg text-white font-medium leading-relaxed mb-4">
                     Nội dung giải thích sẽ hiển thị ở đây.
                 </p>
                 <button onclick="nextQuestion()" class="w-full py-3 rounded-xl text-sm sm:text-base font-black bg-white text-gray-900 shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:bg-gray-200 transition-all active:scale-95 focus:outline-none">
-                    HIỂU RỒI, TIẾP TỤC! (Enter) ⏭️
+                    TIẾP TỤC (Enter) ⏭️
                 </button>
             </div>
         </div>
@@ -485,6 +483,7 @@
         <div id="psych-msg" class="text-center h-6 sm:h-8 font-black text-base sm:text-xl text-emerald-400 transition-opacity opacity-0 mt-auto drop-shadow-md"></div>
     </div>
 
+    <!-- Màn hình Kết quả -->
     <div id="result-screen" class="glass-panel w-full max-w-xl max-h-full overflow-y-auto custom-scrollbar rounded-3xl p-6 sm:p-10 text-center hidden mx-auto flex flex-col justify-center border border-white/20">
         <h2 id="result-main-title" class="text-sm sm:text-base font-bold text-gray-400 mb-2 uppercase tracking-widest">Đánh Giá Phân Tích Não Bộ</h2>
         <div id="final-rank" class="text-3xl sm:text-5xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-yellow-500 to-orange-500 leading-tight">
@@ -507,7 +506,7 @@
             <div id="save-score-section" class="pt-4 border-t border-white/10">
                 <input type="text" id="player-name" maxlength="20" placeholder="Nhập tên của bạn để lưu danh..." class="w-full bg-black/40 border border-white/20 text-white font-bold rounded-xl px-4 py-4 mb-3 text-center focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all text-sm sm:text-base">
                 <button onclick="saveScore()" class="w-full py-4 rounded-xl text-sm sm:text-base font-black bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 shadow-[0_5px_20px_rgba(16,185,129,0.4)] transition-all text-white active:scale-95 focus:outline-none">
-                    💾 GHI DANH BẢNG XẾP HẠNG ONLINE
+                    💾 LƯU ĐIỂM & XEM BXH
                 </button>
             </div>
             
@@ -516,16 +515,16 @@
             </button>
 
             <button onclick="resetToHome()" class="w-full py-3 rounded-xl text-sm sm:text-base font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all active:scale-95 focus:outline-none">
-                🏠 VỀ TRANG CHỦ LÀM LẠI
+                🏠 VỀ TRANG CHỦ
             </button>
         </div>
     </div>
 
+    <!-- Màn hình Leaderboard -->
     <div id="leaderboard-screen" class="glass-panel w-full max-w-xl max-h-[90vh] flex flex-col rounded-3xl p-6 sm:p-8 text-center hidden relative z-10 mx-auto border border-white/20">
-        <h2 class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-2 flex items-center justify-center gap-2 flex-shrink-0 drop-shadow-md">
-            🏆 BẢNG PHONG THẦN
+        <h2 class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-6 flex items-center justify-center gap-2 flex-shrink-0 drop-shadow-md">
+            🏆 BẢNG PHONG THẦN 🏆
         </h2>
-        <p class="text-xs text-emerald-400 font-bold mb-4 uppercase tracking-widest">(Đồng bộ máy chủ Cloud Thời gian thực)</p>
         
         <div class="bg-black/40 rounded-2xl p-2 mb-6 flex-1 flex flex-col min-h-0 border border-white/10">
             <div class="grid grid-cols-[1fr_4fr_2fr] gap-2 text-xs font-black text-gray-400 uppercase tracking-wider px-4 py-3 border-b border-white/10 flex-shrink-0">
@@ -543,6 +542,7 @@
         </button>
     </div>
 
+    <!-- Âm thanh (Pixabay free audios) -->
     <audio id="sfx-correct" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3" preload="auto"></audio>
     <audio id="sfx-wrong" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_78bc653426.mp3" preload="auto"></audio>
     <audio id="sfx-powerup" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_12b0c7443c.mp3" preload="auto"></audio>
@@ -550,34 +550,32 @@
     <audio id="bgm-tense" src="https://cdn.pixabay.com/download/audio/2021/11/25/audio_91b3cb81ed.mp3" loop preload="auto"></audio>
 
 <script>
-    // --- NGÂN HÀNG 20 CÂU HỎI MẶC ĐỊNH (CHUẨN 100%) ---
+    // --- NGÂN HÀNG CÂU HỎI LỚP 8 MẶC ĐỊNH ---
     const tier1 = [
-        { q: "Có 3 quả táo trên bàn, bạn lấy đi 2 quả. Bạn có bao nhiêu quả táo?", a: ["0 quả", "1 quả", "2 quả", "3 quả"], c: 2, exp: "Khà khà, trò lấy đi 2 quả táo thì tất nhiên trên tay trò đang cầm 2 quả rồi!" },
-        { q: "Bố của Hoa có 4 người con gái: Xuân, Hạ, Thu. Người thứ 4 tên là gì?", a: ["Hoa", "Đông", "Tuyết", "Không biết"], c: 0, exp: "Câu hỏi đã nói rõ là 'Bố của Hoa' rồi cơ mà. Người còn lại chính là Hoa chứ ai!" },
-        { q: "100 chia cho một nửa, sau đó cộng thêm 50 bằng bao nhiêu?", a: ["250", "100", "150", "52"], c: 0, exp: "Trò nhớ nhé: Chia cho 'một nửa' (0.5) tức là nhân 2. Vậy 100 x 2 = 200, cộng 50 là 250." },
-        { q: "Tam giác có một góc 90 độ được gọi là tam giác gì?", a: ["Tam giác vuông", "Tam giác nhọn", "Tam giác tù", "Tam giác đều"], c: 0, exp: "Quá cơ bản! Tam giác có 1 góc vuông (90 độ) thì ta gọi là tam giác vuông." },
-        { q: "Ai là người dời đô từ Hoa Lư về Thăng Long năm 1010?", a: ["Lý Thái Tổ", "Lý Thái Tông", "Đinh Tiên Hoàng", "Lê Lợi"], c: 0, exp: "Năm 1010, vua Lý Công Uẩn (Lý Thái Tổ) đã ban Chiếu dời đô từ Hoa Lư về thành Đại La (Thăng Long)." },
-        { q: "Cuộc khởi nghĩa của Hai Bà Trưng bùng nổ vào năm nào?", a: ["Năm 40", "Năm 248", "Năm 938", "Năm 542"], c: 0, exp: "Mùa xuân năm 40 (sau Công Nguyên), Hai Bà Trưng phất cờ khởi nghĩa đập tan ách thống trị của nhà Đông Hán." },
-        { q: "Điền vào chỗ trống: 'Ăn quả nhớ kẻ trồng cây / Ăn khoai nhớ kẻ cho... mà trồng.'", a: ["Dây", "Củ", "Lá", "Nước"], c: 0, exp: "Giáo sư nhắc trò nhớ câu ca dao về lòng biết ơn: 'Ăn khoai nhớ kẻ cho dây mà trồng'." },
-        { q: "Chuồn chuồn bay thấp thì mưa / Bay cao thì nắng, bay vừa thì...", a: ["Râm", "Bão", "Mát", "Lụt"], c: 0, exp: "Kinh nghiệm dự báo thời tiết của ông cha ta: bay vừa thì 'Râm' (tức là râm mát)." },
-        { q: "Bệnh gì bác sĩ bó tay?", a: ["Bệnh gãy tay", "Bệnh nan y", "Bệnh viện", "Bệnh cảm"], c: 0, exp: "Đố vui chút thôi! Gãy tay thì bác sĩ phải 'bó tay' (bó bột) để chữa chứ sao!" },
-        { q: "Cái gì chặt không đứt, bứt không rời, phơi không khô, đốt không cháy?", a: ["Nước", "Tóc", "Vàng", "Cát"], c: 0, exp: "Chính là Nước! Thể lỏng không thể bị cắt đứt hay đốt cháy bằng lửa thông thường." }
+        { type: "mcq", q: "Có 3 quả táo trên bàn, bạn lấy đi 2 quả. Bạn có bao nhiêu quả táo?", a: ["0 quả", "1 quả", "2 quả", "3 quả"], c: 2, exp: "Khà khà, trò lấy đi 2 quả táo thì tất nhiên trên tay trò đang cầm 2 quả rồi!" },
+        { type: "mcq", q: "Bố của Hoa có 4 người con gái: Xuân, Hạ, Thu. Người thứ 4 tên là gì?", a: ["Hoa", "Đông", "Tuyết", "Không biết"], c: 0, exp: "Câu hỏi đã nói rõ là 'Bố của Hoa' rồi cơ mà. Người còn lại chính là Hoa chứ ai!" },
+        { type: "mcq", q: "Trong một cuộc chạy thi, nếu bạn vượt qua người chạy thứ 2 thì bạn đang đứng thứ mấy?", a: ["Thứ 1", "Thứ 2", "Thứ 3", "Cuối cùng"], c: 1, exp: "Vượt người thứ 2 thì trò chiếm lấy vị trí của họ, nên trò sẽ đứng thứ 2 nhé." },
+        { type: "mcq", q: "Ai là người dời đô từ Hoa Lư về Thăng Long năm 1010?", a: ["Lý Thái Tổ", "Lý Thái Tông", "Đinh Tiên Hoàng", "Lê Lợi"], c: 0, exp: "Năm 1010, vua Lý Công Uẩn (Lý Thái Tổ) đã ban Chiếu dời đô từ Hoa Lư về thành Đại La (Thăng Long)." },
+        { type: "mcq", q: "Cuộc khởi nghĩa của Hai Bà Trưng bùng nổ vào năm nào?", a: ["Năm 40", "Năm 248", "Năm 938", "Năm 542"], c: 0, exp: "Mùa xuân năm 40 (sau Công Nguyên), Hai Bà Trưng phất cờ khởi nghĩa đập tan ách thống trị của nhà Đông Hán." },
+        { type: "mcq", q: "Điền vào chỗ trống: 'Ăn quả nhớ kẻ trồng cây / Ăn khoai nhớ kẻ cho... mà trồng.'", a: ["Dây", "Củ", "Lá", "Nước"], c: 0, exp: "Giáo sư nhắc trò nhớ câu ca dao về lòng biết ơn: 'Ăn khoai nhớ kẻ cho dây mà trồng'." },
+        { type: "mcq", q: "Chuồn chuồn bay thấp thì mưa / Bay cao thì nắng, bay vừa thì...", a: ["Râm", "Bão", "Mát", "Lụt"], c: 0, exp: "Kinh nghiệm dự báo thời tiết của ông cha ta: bay vừa thì 'Râm' (tức là râm mát)." },
+        { type: "fill", q: "Điền một từ còn thiếu vào câu thành ngữ sau: 'Gần mực thì đen, gần ... thì rạng.'", c: "đèn", exp: "Câu tục ngữ nhắc nhở về môi trường sống: Gần mực (xấu) thì đen, gần ĐÈN (tốt, sáng) thì rạng rỡ." }
     ];
-
     const tier2 = [
-        { q: "Tháng nào trong năm có 28 ngày?", a: ["Mọi tháng", "Tháng 2", "Không tháng nào", "Tháng 4"], c: 0, exp: "Đừng vội vàng! Tất cả 12 tháng trong năm đều có ít nhất 28 ngày trò nhé." },
-        { q: "Giải phương trình: 2x - 6 = 14. Giá trị của x là?", a: ["10", "4", "8", "20"], c: 0, exp: "Chuyển vế đổi dấu: 2x = 14 + 6 = 20. Suy ra x = 10." },
-        { q: "Một xe đi từ A đến B với vận tốc 40km/h và về với vận tốc 60km/h. Vận tốc trung bình cả đi lẫn về là?", a: ["48 km/h", "50 km/h", "52 km/h", "45 km/h"], c: 0, exp: "Tuyệt vời! Công thức vận tốc TB = (2*v1*v2)/(v1+v2) = (2*40*60)/(100) = 48 km/h." },
-        { q: "Trận chiến 'Điện Biên Phủ trên không' bảo vệ bầu trời Hà Nội diễn ra năm nào?", a: ["1972", "1954", "1968", "1975"], c: 0, exp: "Tháng 12 năm 1972, quân dân ta đã đập tan cuộc tập kích chiến lược bằng B-52 của đế quốc Mỹ." },
-        { q: "Vị hoàng đế nào đã làm nên chiến thắng Ngọc Hồi - Đống Đa năm Kỷ Dậu (1789)?", a: ["Quang Trung", "Lê Lợi", "Trần Hưng Đạo", "Gia Long"], c: 0, exp: "Chính là Vua Quang Trung (Nguyễn Huệ) đại phá quân Thanh vang dội lịch sử!" },
-        { q: "Điền vào chỗ trống: 'Thương người như thể thương...'", a: ["Thân", "Mình", "Con", "Em"], c: 0, exp: "Tục ngữ khuyên răn chúng ta phải biết yêu thương người khác như yêu thương chính bản thân mình (Thân)." },
-        { q: "Thành ngữ 'Gắp lửa bỏ bàn...' dùng để chỉ kẻ hay vu khống, đổ vạ.", a: ["Tay", "Chân", "Bếp", "Cạnh"], c: 0, exp: "Gắp lửa bỏ bàn tay là hành động độc ác, cố tình hãm hại người khác." }
+        { type: "mcq", q: "Bệnh gì mà bác sĩ giỏi đến mấy cũng phải bó tay?", a: ["Bệnh gãy tay", "Bệnh nan y", "Bệnh viện", "Bệnh cảm"], c: 0, exp: "Đố vui chút thôi! Gãy tay thì bác sĩ phải 'bó tay' (bó bột) để chữa chứ sao!" },
+        { type: "mcq", q: "Tháng nào trong năm có 28 ngày?", a: ["Mọi tháng", "Tháng 2", "Không tháng nào", "Tháng 4"], c: 0, exp: "Đừng vội vàng! Tất cả 12 tháng trong năm đều có ít nhất 28 ngày trò nhé." },
+        { type: "mcq", q: "100 chia cho một nửa, sau đó cộng thêm 50 bằng bao nhiêu?", a: ["250", "100", "150", "52"], c: 0, exp: "Trò nhớ nhé: Chia cho 'một nửa' (0.5) tức là nhân 2. Vậy 100 x 2 = 200, cộng 50 là 250." },
+        { type: "mcq", q: "Giải phương trình: 2x - 6 = 14. Giá trị của x là?", a: ["10", "4", "8", "20"], c: 0, exp: "Chuyển vế đổi dấu: 2x = 14 + 6 = 20. Suy ra x = 10." },
+        { type: "mcq", q: "Một xe đi từ A đến B với vận tốc 40km/h và về với vận tốc 60km/h. Vận tốc trung bình cả đi lẫn về là?", a: ["48 km/h", "50 km/h", "52 km/h", "45 km/h"], c: 0, exp: "Công thức vận tốc TB = (2*v1*v2)/(v1+v2) = (2*40*60)/(100) = 48 km/h." },
+        { type: "fill", q: "Tìm quy luật và điền số tiếp theo vào dãy: 2, 5, 10, 17, ___", c: "26", exp: "Quy luật cộng các số lẻ liên tiếp: +3, +5, +7. Vậy số tiếp theo cộng thêm 9 là 17 + 9 = 26." },
+        { type: "mcq", q: "Trận chiến 'Điện Biên Phủ trên không' bảo vệ bầu trời Hà Nội diễn ra năm nào?", a: ["1972", "1954", "1968", "1975"], c: 0, exp: "Tháng 12 năm 1972, quân dân ta đã đập tan cuộc tập kích chiến lược bằng B-52 của đế quốc Mỹ." },
+        { type: "mcq", q: "Vị hoàng đế nào đã làm nên chiến thắng Ngọc Hồi - Đống Đa năm Kỷ Dậu (1789)?", a: ["Quang Trung", "Lê Lợi", "Trần Hưng Đạo", "Gia Long"], c: 0, exp: "Chính là Vua Quang Trung (Nguyễn Huệ) đại phá quân Thanh vang dội lịch sử!" },
+        { type: "mcq", q: "Điền vào chỗ trống: 'Thương người như thể thương...'", a: ["Thân", "Mình", "Con", "Em"], c: 0, exp: "Tục ngữ khuyên răn chúng ta phải biết yêu thương người khác như yêu thương chính bản thân mình (Thân)." }
     ];
-
     const tier3 = [
-        { q: "Có 3 người thợ xây 3 căn nhà trong 3 ngày. Vậy 300 thợ xây 300 căn nhà trong bao lâu?", a: ["3 ngày", "300 ngày", "1 ngày", "100 ngày"], c: 0, exp: "Giáo sư giải thích: 3 người xây 3 căn mất 3 ngày, tức là mỗi người tự xây 1 căn mất 3 ngày. Vậy 300 người cùng lúc xây 300 căn cũng chỉ mất đúng 3 ngày thôi!" },
-        { q: "Trong hồ có một cụm bèo, mỗi ngày diện tích bèo tăng gấp đôi. Mất 48 ngày để bèo phủ kín hồ. Hỏi mất bao lâu để phủ nửa hồ?", a: ["47 ngày", "24 ngày", "46 ngày", "12 ngày"], c: 0, exp: "Trò mắc bẫy rồi! Vì mỗi ngày bèo tăng gấp đôi, nên trước ngày thứ 48 (kín hồ) một ngày, tức là ngày thứ 47 bèo đã phủ được một nửa hồ." },
-        { q: "Hiện nay tổng tuổi của 2 cha con là 50. Biết 5 năm nữa tuổi cha gấp 3 lần tuổi con. Hỏi hiện nay con bao nhiêu tuổi?", a: ["10 tuổi", "5 tuổi", "15 tuổi", "12 tuổi"], c: 0, exp: "Năm năm nữa, tổng tuổi 2 người là 50 + 10 = 60. Cha gấp 3 con (tổng 4 phần), vậy con là 60/4 = 15 tuổi. Hiện tại con sẽ là: 15 - 5 = 10 tuổi." }
+        { type: "mcq", q: "Trong hồ có một cụm bèo, mỗi ngày diện tích bèo tăng gấp đôi. Mất 48 ngày để bèo phủ kín hồ. Hỏi mất bao lâu để phủ nửa hồ?", a: ["47 ngày", "24 ngày", "46 ngày", "12 ngày"], c: 0, exp: "Trò mắc bẫy rồi! Vì mỗi ngày bèo tăng gấp đôi, nên trước ngày thứ 48 (kín hồ) một ngày, tức là ngày thứ 47 bèo đã phủ được một nửa hồ." },
+        { type: "mcq", q: "Hiện nay tổng tuổi của 2 cha con là 50. Biết 5 năm nữa tuổi cha gấp 3 lần tuổi con. Hỏi hiện nay con bao nhiêu tuổi?", a: ["10 tuổi", "5 tuổi", "15 tuổi", "12 tuổi"], c: 0, exp: "Năm năm nữa, tổng tuổi 2 người là 50 + 10 = 60. Cha gấp 3 con (tổng 4 phần), vậy con là 60/4 = 15 tuổi. Hiện tại con sẽ là: 15 - 5 = 10 tuổi." },
+        { type: "drag", q: "Sắp xếp các triều đại phong kiến Việt Nam theo thứ tự thời gian xuất hiện trước - sau:", c: ["Nhà Đinh", "Nhà Lý", "Nhà Trần", "Nhà Lê"], exp: "Thứ tự chính xác là: Đinh Tiên Hoàng (968), Lý Thái Tổ (1009), Trần Thái Tông (1225), và Lê Thái Tổ (1428)." }
     ];
 
     let questions = [];
@@ -694,6 +692,7 @@
                     
                     let level = parseInt(row[0]);
                     let qObj = {
+                        type: 'mcq',
                         q: row[1] ? row[1].toString() : "",
                         a: [
                             row[2] ? row[2].toString() : "",
@@ -767,7 +766,10 @@
         aiStatus.innerText = "Giáo sư Trí Tuệ đang biên soạn đề, vui lòng chờ...";
         updateDataStatus("", "gray"); document.getElementById('import-status').classList.add('hidden');
 
-        let apiKey = ""; 
+        // BỘ NÃO AUTO-SWITCH MODEL
+        // ĐỂ MANG ĐI THI CHẤM TRÊN MÁY KHÁC: BẮT BUỘC PHẢI CÓ API KEY TỪ AISTUDIO
+        let apiKey = "AIzaSyDVXw25Awy_DQZFrw-1cucSuiyKlXfYxCA"; // <- Khóa Gemini của anh
+        
         let endpoints = [];
         if (!apiKey || apiKey === "") {
             endpoints = [`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`];
@@ -781,14 +783,8 @@
 
         let difficultyText = difficulty === 1 ? "Dễ" : difficulty === 2 ? "Trung bình" : "Khó";
 
-        const promptText = `Tạo bộ câu hỏi trắc nghiệm. BẠN LÀ "GIÁO SƯ TRÍ TUỆ" - vui tính, thông thái.
-- Môn: ${subject}
-- Nội dung: ${topic}
-- Số câu: ${count}
-- Độ khó: ${difficultyText}
-
-Mỗi câu gồm: "q" (Câu hỏi), "a" (Mảng 4 đáp án), "c" (Vị trí đáp án đúng từ 0-3), "exp" (Giải thích ngắn 2 câu, xưng "Ta", gọi "Trò").
-TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"Hỏi?","a":["A","B","C","D"],"c":0,"exp":"Giải thích"}]`;
+        const promptText = `Bạn là một hệ thống xuất dữ liệu. Tạo đúng ${count} câu hỏi trắc nghiệm môn ${subject}, nội dung ${topic}, độ khó ${difficultyText}.
+TRẢ VỀ ĐÚNG MỘT MẢNG JSON. Ví dụ: [{"type":"mcq","q":"Hỏi?","a":["A","B","C","D"],"c":0,"exp":"Giải thích"}]`;
 
         const payload = {
             contents: [{ parts: [{ text: promptText }] }],
@@ -797,7 +793,11 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
                 { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
                 { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
                 { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
-            ]
+            ],
+            // BẢN FIX: Ép buộc API Gemini phải trả về đúng chuẩn JSON, sửa lỗi parse JSON
+            generationConfig: {
+                responseMimeType: "application/json"
+            }
         };
 
         let rawText = null;
@@ -833,6 +833,7 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
         }
 
         try {
+            // BẢN FIX: Bắt lỗi trực tiếp nếu không có kết quả từ AI
             if (!rawText) throw new Error(lastErrorMsg);
 
             let cleanText = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
@@ -853,12 +854,28 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
         } catch (error) {
             console.error("Lỗi trích xuất AI:", error);
             let errMsg = error.message;
+            
             if(errMsg.includes("has not been used in project") || errMsg.includes("is disabled")) {
-                errMsg = "Sai API Key! Hãy vào aistudio.google.com tạo Key AI riêng.";
+                errMsg = "Sai API Key! Bạn đang dán khóa của Firebase vào khóa của AI. Hãy truy cập aistudio.google.com để tạo khóa AI riêng.";
             } else if(errMsg.includes("API_KEY_INVALID") || errMsg.includes("API key not valid")) {
                 errMsg = "Thiếu API Key hoặc API Key không hợp lệ.";
             }
-            updateDataStatus(`❌ Lỗi kết nối AI: ${errMsg}`, 'red');
+            
+            // BẢN FIX: TẠO CÂU HỎI MÔ PHỎNG NẾU API KEY LỖI ĐỂ GAME VẪN CHẠY ĐƯỢC
+            const mockQuestions = [];
+            for(let i=0; i<count; i++) {
+                mockQuestions.push({
+                    type: "mcq",
+                    q: `[Câu hỏi Mô Phỏng AI] Bạn đã yêu cầu tạo câu về: ${topic} - (Câu ${i+1})?`,
+                    a: ["Đáp án Đúng", "Đáp án Sai 1", "Đáp án Sai 2", "Đáp án Sai 3"],
+                    c: 0,
+                    exp: `Hệ thống tự tạo câu hỏi này vì API Key của bạn đang lỗi. Chi tiết lỗi: ${errMsg}`
+                });
+            }
+            aiQuestionsQueue.unshift(...mockQuestions);
+            updateDataStatus(`⚠️ Cảnh báo API: ${errMsg}. Đã tự tạo ${count} câu mô phỏng để test Game!`, 'yellow');
+            document.getElementById('ai-topic').value = '';
+
         } finally {
             btn.disabled = false;
             btn.innerHTML = `<span>🚀 GỌI GIÁO SƯ TRÍ TUỆ BẮT ĐẦU TẠO</span>`;
@@ -869,27 +886,32 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
 
     // --- LOGIC GAME & ANTI-CHEAT ---
     
-    // 1. Chống lách bằng cách chuyển Tab (Visibility Change)
+    function removeAntiCheatShield() {
+        document.body.classList.remove('shield-active');
+    }
+    function enableAntiCheatShield() {
+        document.body.classList.add('shield-active');
+    }
+
     document.addEventListener("visibilitychange", () => {
         if (document.hidden && isGameRunning && !isPaused && lives > 0 && !isShowingExplanation) {
             triggerAntiCheat("Phát hiện rời khỏi phòng thi!");
         }
     });
 
-    // 2. Chống lách bằng cách thu nhỏ màn hình (Thoát Fullscreen)
     document.addEventListener("fullscreenchange", () => {
         if (!document.fullscreenElement && isGameRunning && !isPaused && lives > 0 && !isShowingExplanation) {
             triggerAntiCheat("Rời khỏi chế độ toàn màn hình!");
         }
     });
 
-    // 3. Khóa bàn phím các phím chuyển màn (Alt, Tab, Esc, Windows/Meta)
     document.addEventListener('keydown', (e) => {
-        // Nếu đang trong game, khóa các phím dễ gây thoát ứng dụng
-        if (isGameRunning && !isPaused && lives > 0) {
+        // KHÓA PHÍM GIAN LẬN
+        if (document.body.classList.contains('shield-active') && isGameRunning && !isPaused && lives > 0) {
             if (e.altKey || e.key === 'Tab' || e.key === 'Escape' || e.key === 'Meta' || e.key === 'Control') {
-                e.preventDefault(); // Cố gắng chặn lệnh mặc định của trình duyệt
+                e.preventDefault(); 
                 showToast("🚨 Bàn phím hệ thống đã bị khóa trong phòng thi!");
+                return; // Chặn xử lý tiếp
             }
         }
 
@@ -905,16 +927,22 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
         }
 
         if (isClickable) {
-            const btns = document.querySelectorAll('.option-btn');
-            if(key === 'a' && btns[0] && !btns[0].disabled) checkAnswer(0, btns[0], {});
-            if(key === 'b' && btns[1] && !btns[1].disabled) checkAnswer(1, btns[1], {});
-            if(key === 'c' && btns[2] && !btns[2].disabled) checkAnswer(2, btns[2], {});
-            if(key === 'd' && btns[3] && !btns[3].disabled) checkAnswer(3, btns[3], {});
+            let q = questions[currentIndex];
+            // Phím tắt A B C D chỉ hoạt động cho loại Trắc nghiệm (MCQ)
+            if (!q.type || q.type === 'mcq') {
+                const btns = document.querySelectorAll('.option-btn');
+                if(key === 'a' && btns[0] && !btns[0].disabled) checkAnswer(0, btns[0], {});
+                if(key === 'b' && btns[1] && !btns[1].disabled) checkAnswer(1, btns[1], {});
+                if(key === 'c' && btns[2] && !btns[2].disabled) checkAnswer(2, btns[2], {});
+                if(key === 'd' && btns[3] && !btns[3].disabled) checkAnswer(3, btns[3], {});
+            } else if (q.type === 'fill') {
+                if (key === 'enter') checkFillAnswer();
+            }
+
             if(key === '1') use5050(); if(key === '2') useFreeze(); if(key === '3') useSwap();
         }
     });
 
-    // Hàm trừng phạt gian lận
     function triggerAntiCheat(reason = "Gian lận!") {
         let penaltyIQ = 30;
         currentIQ = Math.max(baseIQ, currentIQ - penaltyIQ);
@@ -971,6 +999,7 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
         
         document.getElementById('player-name').value = ''; 
         currentRunId = null; isGameRunning = false;
+        removeAntiCheatShield(); // Gỡ lá chắn bàn phím
         
         let bestIQ = localStorage.getItem('iqBestScore_v2');
         if(bestIQ && parseInt(bestIQ) > 100) {
@@ -1038,7 +1067,7 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
 
     function startGame() {
         if (tier1.length + tier2.length + tier3.length < 5) {
-            alert("Ngân hàng câu hỏi quá ít! Vui lòng nạp thêm.");
+            showToast("⚠️ Ngân hàng câu hỏi quá ít! Vui lòng nạp thêm.");
             return;
         }
 
@@ -1059,6 +1088,8 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
         document.getElementById('btn-pause').classList.remove('hidden');
         
         isGameRunning = true; isPaused = false;
+        enableAntiCheatShield(); // Kích hoạt chặn phím
+        
         document.getElementById('pause-overlay').classList.add('hidden');
         document.getElementById('pause-overlay').classList.remove('flex');
         document.getElementById('btn-pause').innerText = "⏸️";
@@ -1084,9 +1115,10 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
         if (isSoundOn) safePlayAudio('bgm-normal');
         safePauseAudio('bgm-tense');
 
-        let t1 = shuffle(tier1).slice(0, 8); // Lấy 8 câu dễ
-        let t2 = shuffle(tier2).slice(0, 6); // Lấy 6 câu vừa
-        let t3 = shuffle(tier3).slice(0, 3); // Lấy 3 câu khó trùm cuối
+        // BẢN FIX: Giảm slice xuống 1 đơn vị để chừa lại ít nhất 1-2 câu hỏi dự phòng cho mỗi cấp độ
+        let t1 = shuffle(tier1).slice(0, 7); 
+        let t2 = shuffle(tier2).slice(0, 8); 
+        let t3 = shuffle(tier3).slice(0, 2); 
         
         reserveQuestions = [...tier1, ...tier2, ...tier3].filter(q => !t1.includes(q) && !t2.includes(q) && !t3.includes(q));
         reserveQuestions = shuffle(reserveQuestions);
@@ -1100,6 +1132,11 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
 
     function use5050() {
         if(used5050 || !isClickable || isBossLevel || isPaused) return;
+        if(questions[currentIndex].type && questions[currentIndex].type !== 'mcq') {
+            showToast("⚠️ Trợ giúp 50:50 chỉ dành cho Trắc nghiệm 4 đáp án!");
+            return;
+        }
+
         used5050 = true; safePlayAudio('sfx-powerup');
         document.getElementById('btn-5050').classList.add('disabled-powerup');
         
@@ -1157,7 +1194,7 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
     function startTimer() {
         clearInterval(timerInterval); clearTimeout(freezeTimeout);
         isBossLevel = (currentIndex === questions.length - 1);
-        currentTotalTime = isBossLevel ? 15000 : 12000; 
+        currentTotalTime = isBossLevel ? 20000 : 15000; 
         timeLeft = currentTotalTime;
         
         const timeBar = document.getElementById('time-bar');
@@ -1207,7 +1244,6 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
             void qContainer.offsetWidth; 
             qContainer.classList.add('animate-pop');
 
-            // Boss level: 3 câu cuối cùng của danh sách
             isBossLevel = (currentIndex >= questions.length - 3);
 
             if (isBossLevel) {
@@ -1251,91 +1287,209 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
             }
 
             optionsGrid.innerHTML = "";
-            let optionsArr = q.a.map((text, i) => { return {text: text, originalId: i}; });
-            let shuffledOptions = shuffle(optionsArr);
-            currentCorrectIndex = shuffledOptions.findIndex(o => o.originalId === q.c);
+            
+            // Render giao diện theo từng loại (Type) của câu hỏi
+            if (!q.type || q.type === 'mcq') {
+                let optionsArr = q.a.map((text, i) => { return {text: text, originalId: i}; });
+                let shuffledOptions = shuffle(optionsArr);
+                currentCorrectIndex = shuffledOptions.findIndex(o => o.originalId === q.c);
 
-            shuffledOptions.forEach((opt, index) => {
-                const btn = document.createElement('button');
-                const letter = String.fromCharCode(65 + index);
-                btn.className = "option-btn bg-black/40 border border-white/10 hover:border-white/30 text-white font-semibold py-3 px-4 sm:py-5 sm:px-6 rounded-2xl text-left w-full text-base sm:text-xl shadow-lg flex items-center group";
-                btn.innerHTML = `
-                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 group-hover:bg-white/20 flex items-center justify-center mr-3 sm:mr-4 font-black transition-colors shrink-0">
-                        ${letter}
-                    </div> 
-                    <span class="flex-1">${opt.text}</span>
+                shuffledOptions.forEach((opt, index) => {
+                    const btn = document.createElement('button');
+                    const letter = String.fromCharCode(65 + index);
+                    btn.className = "option-btn bg-black/40 border border-white/10 hover:border-white/30 text-white font-semibold py-3 px-4 sm:py-5 sm:px-6 rounded-2xl text-left w-full text-base sm:text-xl shadow-lg flex items-center group";
+                    btn.innerHTML = `
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 group-hover:bg-white/20 flex items-center justify-center mr-3 sm:mr-4 font-black transition-colors shrink-0">
+                            ${letter}
+                        </div> 
+                        <span class="flex-1">${opt.text}</span>
+                    `;
+                    btn.onclick = (e) => checkAnswer(index, btn, e);
+                    optionsGrid.appendChild(btn);
+                });
+            } 
+            else if (q.type === 'fill') {
+                optionsGrid.innerHTML = `
+                    <div class="col-span-1 md:col-span-2 flex flex-col items-center gap-4 w-full">
+                        <input type="text" id="fill-input" class="w-full max-w-md px-6 py-4 rounded-2xl bg-black/50 border border-white/30 text-emerald-400 font-bold text-2xl text-center focus:border-emerald-500 focus:outline-none transition-all" placeholder="Nhập đáp án của bạn..." autocomplete="off">
+                        <button onclick="checkFillAnswer()" class="w-full max-w-md py-4 rounded-xl text-lg font-black bg-gradient-to-r from-blue-600 to-cyan-600 shadow-[0_5px_20px_rgba(37,99,235,0.4)] text-white hover:scale-[1.02] transition-transform">XÁC NHẬN TRẢ LỜI</button>
+                    </div>
                 `;
-                btn.onclick = (e) => checkAnswer(index, btn, e);
-                optionsGrid.appendChild(btn);
-            });
+                setTimeout(() => { document.getElementById('fill-input').focus(); }, 300);
+            }
+            else if (q.type === 'drag') {
+                let shuffledPieces = shuffle([...q.c]); 
+                
+                let dropHTML = q.c.map((_, i) => `<div id="drop-${i}" class="drop-zone w-full sm:flex-1 h-14 bg-white/10 rounded-xl flex items-center justify-center font-bold text-sm border border-dashed border-gray-400 cursor-pointer transition-all" onclick="moveDragItem(this, 'bank')"></div>`).join('');
+                
+                let bankHTML = shuffledPieces.map((piece, i) => `<div id="piece-${i}" class="drag-piece px-4 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl font-bold text-sm shadow-md cursor-pointer transition-all hover:scale-105 text-center" onclick="moveDragItem(this, 'drop')">${piece}</div>`).join('');
+
+                optionsGrid.innerHTML = `
+                    <div class="col-span-1 md:col-span-2 flex flex-col items-center gap-6 w-full">
+                        <p class="text-sm text-yellow-300 italic mb-[-10px] w-full text-center">* Chạm vào mảnh ghép để sắp xếp lên các ô trống.</p>
+                        <div id="drag-drop-container" class="flex flex-col sm:flex-row w-full gap-2 justify-between min-h-[50px] p-2 bg-black/40 rounded-2xl">
+                            ${dropHTML}
+                        </div>
+                        <div id="drag-bank-container" class="flex flex-wrap w-full gap-3 justify-center min-h-[50px] p-4 bg-black/30 rounded-2xl border border-white/10">
+                            ${bankHTML}
+                        </div>
+                        <button onclick="checkDragAnswer()" class="w-full max-w-md py-4 rounded-xl text-lg font-black bg-gradient-to-r from-emerald-600 to-teal-600 shadow-[0_5px_20px_rgba(16,185,129,0.4)] text-white hover:scale-[1.02] transition-transform">XÁC NHẬN GHÉP NỐI</button>
+                    </div>
+                `;
+            }
             
             isClickable = true; startTimer();
         } catch(e) { console.error("Lỗi nạp câu hỏi:", e); }
     }
 
-    function checkAnswer(selectedIndex, btnElement, event) {
-        try {
-            if(!isClickable || isPaused) return;
-            isClickable = false;
-            clearInterval(timerInterval); clearTimeout(freezeTimeout);
-            document.getElementById('question-container').classList.remove('danger-mode');
+    // Xử lý chung các loại đáp án
+    function processAnswerCommon(isCorrect, targetElement, event = {}) {
+        isClickable = false;
+        clearInterval(timerInterval); clearTimeout(freezeTimeout);
+        document.getElementById('question-container').classList.remove('danger-mode');
 
-            const isCorrect = (selectedIndex === currentCorrectIndex);
-            const buttons = document.querySelectorAll('.option-btn');
-            let timeUsed = currentTotalTime - timeLeft;
+        let timeUsed = currentTotalTime - timeLeft;
 
-            if(isCorrect) {
-                streak++;
-                if(streak >= 6) comboMultiplier = 3;
-                else if(streak >= 3) comboMultiplier = 2;
-                else comboMultiplier = 1;
-            } else {
-                streak = 0; comboMultiplier = 1;
-            }
+        if(isCorrect) {
+            streak++;
+            if(streak >= 6) comboMultiplier = 3;
+            else if(streak >= 3) comboMultiplier = 2;
+            else comboMultiplier = 1;
+        } else {
+            streak = 0; comboMultiplier = 1;
+        }
 
-            updateComboUI();
+        updateComboUI();
 
-            if(isCorrect) {
-                btnElement.classList.add('correct-ans');
-                safePlayAudio('sfx-correct');
-                if(comboMultiplier >= 2) fireMiniConfetti();
+        if(isCorrect) {
+            if(targetElement) targetElement.classList.add('correct-ans');
+            safePlayAudio('sfx-correct');
+            if(comboMultiplier >= 2) fireMiniConfetti();
 
-                fastCorrectStreak = (timeUsed < 3000) ? fastCorrectStreak + 1 : 0;
-                if(fastCorrectStreak > maxFastCorrectStreak) maxFastCorrectStreak = fastCorrectStreak;
-                if(timeLeft < 2000 && currentTotalTime >= 10000) achievedClutch = true;
-                
-                let baseAdd = isBossLevel ? 50 : 5 + Math.ceil((timeLeft / currentTotalTime) * 5);
-                let totalAdded = baseAdd * comboMultiplier;
-                currentIQ += totalAdded;
-                
-                let praise = (timeLeft / currentTotalTime) > 0.7 ? praiseWords[0] : praiseWords[Math.floor(Math.random() * praiseWords.length)];
-                if(isBossLevel) praise = "🔥 XUẤT SẮC ĐÁNH BẠI TRÙM CUỐI!";
-                showMsg(praise, "text-emerald-400");
-                
-                let floatText = `+${totalAdded} IQ`;
-                if(comboMultiplier > 1) floatText += ` (x${comboMultiplier})`;
-                showFloatingText(floatText, event || {}, false);
+            fastCorrectStreak = (timeUsed < 3000) ? fastCorrectStreak + 1 : 0;
+            if(fastCorrectStreak > maxFastCorrectStreak) maxFastCorrectStreak = fastCorrectStreak;
+            if(timeLeft < 2000 && currentTotalTime >= 10000) achievedClutch = true;
+            
+            let baseAdd = isBossLevel ? 50 : 5 + Math.ceil((timeLeft / currentTotalTime) * 5);
+            let totalAdded = baseAdd * comboMultiplier;
+            currentIQ += totalAdded;
+            
+            let praise = (timeLeft / currentTotalTime) > 0.7 ? praiseWords[0] : praiseWords[Math.floor(Math.random() * praiseWords.length)];
+            if(isBossLevel) praise = "🔥 XUẤT SẮC ĐÁNH BẠI TRÙM CUỐI!";
+            showMsg(praise, "text-emerald-400");
+            
+            let floatText = `+${totalAdded} IQ`;
+            if(comboMultiplier > 1) floatText += ` (x${comboMultiplier})`;
+            showFloatingText(floatText, event || {}, false);
 
-                showExplanation(true, btnElement);
-            } else {
-                btnElement.classList.add('wrong-ans');
+            showExplanation(true, targetElement);
+        } else {
+            if(targetElement) targetElement.classList.add('wrong-ans');
+            
+            if (!questions[currentIndex].type || questions[currentIndex].type === 'mcq') {
+                const buttons = document.querySelectorAll('.option-btn');
                 if(buttons[currentCorrectIndex]) buttons[currentCorrectIndex].classList.add('correct-ans');
-                safePlayAudio('sfx-wrong');
-                document.getElementById('game-screen').classList.add('animate-shake');
-
-                let penalty = isBossLevel ? 50 : 10;
-                currentIQ = Math.max(baseIQ, currentIQ - penalty);
-                fastCorrectStreak = 0;
-
-                let cMsg = isBossLevel ? "CÚ SẢY CHÂN CHÍ MẠNG!" : comfortWords[Math.floor(Math.random() * comfortWords.length)];
-                showMsg(cMsg, "text-red-400");
-                showFloatingText(`-${penalty} IQ`, event || {}, true);
-
-                loseHeart(); 
-                if(lives > 0) showExplanation(false, buttons[currentCorrectIndex]);
             }
-            updateStats();
-        } catch(e) { console.error("Lỗi checkAnswer:", e); }
+
+            safePlayAudio('sfx-wrong');
+            document.getElementById('game-screen').classList.add('animate-shake');
+
+            let penalty = isBossLevel ? 50 : 10;
+            currentIQ = Math.max(baseIQ, currentIQ - penalty);
+            fastCorrectStreak = 0;
+
+            let cMsg = isBossLevel ? "CÚ SẢY CHÂN CHÍ MẠNG!" : comfortWords[Math.floor(Math.random() * comfortWords.length)];
+            showMsg(cMsg, "text-red-400");
+            showFloatingText(`-${penalty} IQ`, event || {}, true);
+
+            loseHeart(); 
+            if(lives > 0) showExplanation(false, targetElement);
+        }
+        updateStats();
+    }
+
+    // Handler cho Trắc nghiệm (MCQ)
+    function checkAnswer(selectedIndex, btnElement, event) {
+        if(!isClickable || isPaused) return;
+        const isCorrect = (selectedIndex === currentCorrectIndex);
+        processAnswerCommon(isCorrect, btnElement, event);
+    }
+
+    // Handler cho Điền khuyết (Fill)
+    window.checkFillAnswer = function(event = {}) {
+        if(!isClickable || isPaused) return;
+        const inputEl = document.getElementById('fill-input');
+        const inputVal = inputEl.value.trim().toLowerCase();
+        const correctVal = questions[currentIndex].c.trim().toLowerCase();
+        const isCorrect = (inputVal === correctVal);
+        
+        inputEl.disabled = true;
+        if(isCorrect) {
+            inputEl.classList.add('bg-emerald-500/30', 'border-emerald-500', 'text-emerald-400');
+        } else {
+            inputEl.classList.add('bg-red-500/30', 'border-red-500', 'text-red-400');
+            inputEl.value = `${inputEl.value} (Đúng: ${questions[currentIndex].c})`;
+        }
+
+        processAnswerCommon(isCorrect, inputEl, event);
+    }
+
+    // Handler Di chuyển Kéo thả
+    window.moveDragItem = function(element, target) {
+        if(!isClickable || isPaused) return;
+        safePlayAudio('sfx-powerup'); 
+        if (target === 'drop') {
+            const dropZones = document.querySelectorAll('.drop-zone');
+            for (let zone of dropZones) {
+                if (zone.children.length === 0) {
+                    zone.appendChild(element);
+                    element.setAttribute('onclick', "moveDragItem(this, 'bank')");
+                    break;
+                }
+            }
+        } else {
+            const bank = document.getElementById('drag-bank-container');
+            bank.appendChild(element);
+            element.setAttribute('onclick', "moveDragItem(this, 'drop')");
+        }
+    }
+
+    // Handler Nộp bài Kéo thả (Drag)
+    window.checkDragAnswer = function(event = {}) {
+        if(!isClickable || isPaused) return;
+        const dropZones = document.querySelectorAll('.drop-zone');
+        let currentAnswer = [];
+        let allFilled = true;
+        dropZones.forEach(zone => {
+            if (zone.children.length > 0) {
+                currentAnswer.push(zone.children[0].innerText.trim());
+            } else {
+                allFilled = false;
+            }
+        });
+
+        if (!allFilled) {
+            showMsg("⚠️ Bạn phải điền kín tất cả các ô!", "text-yellow-400");
+            return;
+        }
+
+        const correctArr = questions[currentIndex].c;
+        let isCorrect = true;
+        for(let i=0; i<correctArr.length; i++){
+            if(currentAnswer[i] !== correctArr[i]) {
+                isCorrect = false;
+                break;
+            }
+        }
+
+        const container = document.getElementById('drag-drop-container');
+        if(isCorrect) {
+            container.classList.add('ring-2', 'ring-emerald-500', 'shadow-[0_0_15px_rgba(16,185,129,0.5)]');
+        } else {
+            container.classList.add('ring-2', 'ring-red-500', 'shadow-[0_0_15px_rgba(239,68,68,0.5)]');
+        }
+
+        processAnswerCommon(isCorrect, container, event);
     }
 
     function handleTimeOut() {
@@ -1347,8 +1501,10 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
             safePlayAudio('sfx-wrong');
             document.getElementById('game-screen').classList.add('animate-shake');
 
-            const buttons = document.querySelectorAll('.option-btn');
-            if(buttons[currentCorrectIndex]) buttons[currentCorrectIndex].classList.add('correct-ans');
+            if (!questions[currentIndex].type || questions[currentIndex].type === 'mcq') {
+                const buttons = document.querySelectorAll('.option-btn');
+                if(buttons[currentCorrectIndex]) buttons[currentCorrectIndex].classList.add('correct-ans');
+            }
 
             let penalty = isBossLevel ? 50 : 10;
             currentIQ = Math.max(baseIQ, currentIQ - penalty);
@@ -1361,13 +1517,13 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
             showFloatingText(`-${penalty} IQ`, {clientX: rect.left + rect.width/2, clientY: rect.top + rect.height/2}, true);
 
             loseHeart(); 
-            if(lives > 0) showExplanation(false, buttons[currentCorrectIndex]);
+            if(lives > 0) showExplanation(false, null);
             
             updateStats();
         } catch(e) { console.error("Lỗi TimeOut:", e); }
     }
 
-    function showExplanation(isCorrect, correctBtnElement) {
+    function showExplanation(isCorrect, targetElement) {
         try {
             isShowingExplanation = true;
             const expContainer = document.getElementById('explanation-container');
@@ -1376,14 +1532,16 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
             const expIndicator = document.getElementById('exp-indicator');
             const currentQ = questions[currentIndex];
 
-            const buttons = document.querySelectorAll('.option-btn');
-            buttons.forEach(btn => {
-                if(!btn.classList.contains('correct-ans') && !btn.classList.contains('wrong-ans')) {
-                    btn.style.display = 'none';
-                }
-            });
+            if (!currentQ.type || currentQ.type === 'mcq') {
+                const buttons = document.querySelectorAll('.option-btn');
+                buttons.forEach(btn => {
+                    if(!btn.classList.contains('correct-ans') && !btn.classList.contains('wrong-ans')) {
+                        btn.style.display = 'none';
+                    }
+                });
+            }
 
-            let defaultExp = correctBtnElement ? "Đáp án đúng là " + correctBtnElement.innerText.substring(3) : "Đã có lỗi hiển thị đáp án";
+            let defaultExp = targetElement ? "Đáp án đúng là " + targetElement.innerText.substring(3) : "Đã có lỗi hiển thị đáp án";
             let expContent = (currentQ && currentQ.exp) ? currentQ.exp : defaultExp;
             expText.innerHTML = `"${expContent}"`;
 
@@ -1502,6 +1660,7 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
             document.getElementById('game-screen').classList.remove('flex');
             document.getElementById('btn-pause').classList.add('hidden');
             document.body.classList.remove('boss-mode'); 
+            removeAntiCheatShield(); 
             
             const resultScreen = document.getElementById('result-screen');
             resultScreen.classList.remove('hidden');
@@ -1593,7 +1752,7 @@ TRẢ VỀ ĐÚNG MỘT MẢNG JSON, KHÔNG VIẾT GÌ THÊM. Ví dụ: [{"q":"H
         try {
             document.execCommand('copy');
             showToast("✅ Đã copy kết quả vào khay nhớ tạm!");
-        } catch (err) { alert("❌ Trình duyệt không hỗ trợ copy."); }
+        } catch (err) { showToast("❌ Trình duyệt không hỗ trợ copy."); }
         document.body.removeChild(textArea);
     }
 
